@@ -21,6 +21,9 @@ pub const MEMORY_FILE_PATH: &str = LINUX_SHM_MEMORY_DIR;
 /// - **Other Unix** (macOS, BSD, etc.): `std::env::temp_dir()/.cloudtoid/interprocess/mmf`.
 /// - **Windows**: same temp-dir layout (the named mapping does not use this path, but [`QueueOptions::path`] is populated for consistency).
 pub fn default_memory_dir() -> PathBuf {
+    if let Some(env_dir) = std::env::var_os("RENDERIDE_INTERPROCESS_DIR") {
+        return PathBuf::from(env_dir);
+    }
     #[cfg(target_os = "linux")]
     {
         PathBuf::from(LINUX_SHM_MEMORY_DIR)
