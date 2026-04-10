@@ -77,7 +77,7 @@ impl ResoBootConfig {
         let renderite_executable = exe_dir.join(if cfg!(windows) {
             "renderide.exe"
         } else {
-            "Renderite.Renderer"
+            "renderide"
         });
         let is_wine = runtime::is_wine();
 
